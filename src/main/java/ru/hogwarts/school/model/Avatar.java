@@ -1,6 +1,7 @@
 package ru.hogwarts.school.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
 
 @Entity
 public class Avatar {
@@ -13,7 +14,7 @@ public class Avatar {
     private long fileSize;
     private String mediaType;
 
-    @Lob
+    @Column(columnDefinition = "bytea")
     private byte[] data;
 
     @OneToOne
