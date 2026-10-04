@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -52,5 +53,10 @@ public class AvatarController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(data);
+    }
+    @GetMapping
+    public Page<Avatar> getAllAvatars(@RequestParam int page,
+                                      @RequestParam int size) {
+        return avatarService.getAllAvatars(page, size);
     }
 }
