@@ -124,4 +124,9 @@ public class StudentService {
                 .average()
                 .orElse(0);
     }
+
+    public List<Student> getAllStudentsList() {
+        logger.info("Was invoked method for get all students list");
+        return studentRepository.findAll();
+    }
 }

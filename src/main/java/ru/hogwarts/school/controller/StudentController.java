@@ -77,4 +77,44 @@ public class StudentController {
     public double getAverageAgeOfStudentsByStream() {
         return studentService.getAverageAgeOfStudentsByStream();
     }
+
+    @GetMapping("/students/print-parallel")
+    public void printStudentsParallel() {
+        List<Student> students = (List<Student>) studentService.getAllStudents();
+
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+
+        new Thread(() -> {
+            System.out.println(students.get(2).getName());
+            System.out.println(students.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        }).start();
+    }
+
+    @GetMapping("/students/print-synchronized")
+    public void printStudentsSynchronized() {
+        List<Student> students = studentService.getAllStudentsList();
+
+        printName(students.get(0).getName());
+        printName(students.get(1).getName());
+
+        new Thread(() -> {
+            printName(students.get(2).getName());
+            printName(students.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            printName(students.get(4).getName());
+            printName(students.get(5).getName());
+        }).start();
+    }
+
+    private synchronized void printName(String name) {
+        System.out.println(name);
+    }
 }
