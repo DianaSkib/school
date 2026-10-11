@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import java.util.Comparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +88,13 @@ public class FacultyService {
         logger.info("Was invoked method for get students of faculty");
         logger.debug("Looking for students of faculty with id = {}", facultyId);
         return studentRepository.findByFacultyId(facultyId);
+    }
+
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method for get longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse("");
     }
 }
